@@ -1,6 +1,6 @@
 100        #N
 1          #n
-0.001      #dtau
+0.00001     #dtau
 0          #K
 0          #Omega
 4000       #N_sim
