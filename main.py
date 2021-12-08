@@ -7,7 +7,7 @@ def read_input(filename: str):
     n = int(file.readline().split("#")[0])
     dtau = float(file.readline().split("#")[0])
     K = int(file.readline().split("#")[0])
-    omega = int(file.readline().split("#")[0])
+    omega = float(file.readline().split("#")[0])
     N_sim = int(file.readline().split("#")[0])
     S_out = int(file.readline().split("#")[0])
     S_dat = int(file.readline().split("#")[0])
@@ -15,7 +15,7 @@ def read_input(filename: str):
     return [N, n, dtau, K, omega, N_sim, S_out, S_dat]
 
 
-N, n, dtau, K, omega, N_sim, S_out, S_dat = read_input("input_0.txt")
+N, n, dtau, K, omega, N_sim, S_out, S_dat = read_input("input.txt")
 
 x_k = np.zeros((N + 1, 1), dtype=float)
 phi_R = np.zeros((N + 1, 1), dtype=float)
@@ -74,8 +74,10 @@ def additional_data():
 
     # norma
     N_greek = delta_x * sum(rho)
+
     # sr polozenie
     x = delta_x * sum(x_k * rho)
+
     # energia
     epsilon = delta_x * sum(phi_R * hamiltonian(phi_R) + phi_I * hamiltonian(phi_I))
 
@@ -106,3 +108,6 @@ for i in range(N_sim):
             if k != N:
                 out_file.write("\t")
         out_file.write("\n")
+
+dat_file.close()
+out_file.close()
