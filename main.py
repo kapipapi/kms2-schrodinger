@@ -1,5 +1,9 @@
 import numpy as np
+import sys
 
+prefix = "simulation/sim"+sys.argv[1]+"/"
+
+print(prefix)
 
 def read_input(filename: str):
     file = open(filename, "r")
@@ -15,7 +19,11 @@ def read_input(filename: str):
     return [N, n, dtau, K, omega, N_sim, S_out, S_dat]
 
 
-N, n, dtau, K, omega, N_sim, S_out, S_dat = read_input("input.txt")
+N, n, dtau, K, omega, N_sim, S_out, S_dat = read_input(prefix + "input.txt")
+
+dat_file = open(prefix + "additional.dat", "w")
+dat_file.write(f"tau\tN_greek\tx\tepsilon\n")
+out_file = open(prefix + "phi.xyz", "w")
 
 x_k = np.zeros((N + 1, 1), dtype=float)
 phi_R = np.zeros((N + 1, 1), dtype=float)
@@ -84,10 +92,6 @@ def additional_data():
     return float(N_greek), float(x), float(epsilon)
 
 
-dat_file = open("additional.dat", "w")
-dat_file.write(f"tau\tN_greek\tx\tepsilon\n")
-out_file = open("phi.xyz", "w")
-
 init()
 
 tau = 0
@@ -96,7 +100,7 @@ for i in range(N_sim):
     step()
     tau += dtau
 
-    print(f"{i}/{N_sim}")
+    print(f"{i/N_sim*100}%")
 
     if i % S_dat == 0:
         N_greek, x, epsilon = additional_data()

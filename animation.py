@@ -1,10 +1,15 @@
+import sys
+
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as anim
 
-data = np.zeros((250, 101), dtype=float)
+data = np.zeros((500, 101), dtype=float)
 
-file = open("phi.xyz", "r")
+prefix = "simulation/sim" + sys.argv[1] + "/"
+print(prefix)
+
+file = open(prefix + "phi.xyz", "r")
 i = 0
 for line in file:
     data[i] = line.strip("\n").split('\t')
@@ -12,8 +17,9 @@ for line in file:
 
 fig, ax = plt.subplots()
 
+
 def update(i):
-    xs = [k*0.01 for k in range(101)]
+    xs = [k * 0.01 for k in range(101)]
     ys = data[i]
     print(i)
     ax.clear()
@@ -22,6 +28,6 @@ def update(i):
     ax.scatter(xs, ys)
 
 
-a = anim.FuncAnimation(fig, update, frames=250, interval=20)
+a = anim.FuncAnimation(fig, update, frames=500, interval=20)
 # a.save(f'rho.mp4', fps=60, dpi=600)
 plt.show()
