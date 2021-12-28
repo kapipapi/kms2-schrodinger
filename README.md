@@ -1,4 +1,4 @@
-# kms2
+# Schrodinger simulation - dynamics of quantum particle in box with electric field
 
 ## Run sim
 - create directory in `simulation` directory with name `simXX` where `XX` is label of your simulation
